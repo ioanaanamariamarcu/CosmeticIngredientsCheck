@@ -1,0 +1,81 @@
+﻿@model CosmeticIngredientsCheck.Models.IngredientsCheckModel
+@using CosmeticIngredientsCheck.DTOs;
+@{
+    ViewData["Title"] = "IngredientsCheck";
+}
+<h2>IngredientsCheck</h2>
+<h4>IngredientsCheckModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="IngredientsCheck">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IngredientsList" class="control-label"></label>
+                <input asp-for="IngredientsList" class="form-control" />
+                <span asp-validation-for="IngredientsList" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+@if (Model?.VerdictList != null)
+{<table>
+        <thead>
+            <tr>
+                <td>Ingredient class</td>
+                <td>Detected ingredient</td>
+                <td>Index of appearance</td>
+                <td>Original ingredient</td>
+                <td>Risk</td>
+                <td>Advice</td>
+            </tr>
+        </thead>
+        @foreach (var verdict in Model.VerdictList)
+        {
+            <tr>
+                <td>
+                    <label asp-for="@verdict.Class">@verdict.Class</label>
+                </td>
+                <td>
+                    <label asp-for="@verdict.Ingredient">@verdict.Ingredient</label>
+                </td>
+                <td>
+                    <label>@verdict.Index / @verdict.TotalNrOfIngredients</label>
+                </td>
+                <td>
+                    <label asp-for="@verdict.OriginalIngredient">@verdict.OriginalIngredient</label>
+                </td>
+                <td>
+                    <span class="risk @(verdict.Risk==Risk.Low ? "low-risk":verdict.Risk == Risk.Medium ? "medium-risk":"high-risk")"/>
+                </td>
+                <td>
+                    <label asp-for="@verdict.Advice">@verdict.Advice</label>
+                </td>
+           </tr>
+        }
+    </table>
+}
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<style>
+    .risk {
+        border-radius: 50%;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+    }
+    .low-risk {
+        background-color: lightgreen;
+    }
+    .medium-risk {
+        background-color: yellow;
+    }
+    .high-risk {
+        background-color: orangered;
+    }
+</style>

@@ -16,16 +16,17 @@ namespace CosmeticIngredientsCheck.Categorizers
 
                     _dictionary = new Dictionary<Ingredient, List<IIngredientMatchingRule>>
 {
+    { new Ingredient { Name = "Ricinoleic Acid", Risk = Risk.High, Details = "Metabolized by M. furfur." }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "ricinoleic acid" }) } },
     { new Ingredient { Name = "Undecylic Acid (C11)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "undecylic", "undecanoic" }) } },
     { new Ingredient { Name =  "Lauric / Dodecanoic (C12)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "lauric", "dodecanoic" }) } },
     { new Ingredient { Name =  "Tridecylic (C13)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "tridecylic" }) } },
     { new Ingredient { Name =  "Myristic / Tetradecanoic (C14)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "myristic", "tetradecanoic" }) } },
     { new Ingredient { Name =  "Pentadecanoic (C15)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "pentadecanoic" }) } },
-    { new Ingredient { Name =  "Palmitic / Hexadecanoic (C16)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "palmitoleic", "hexadecanoic" }) } },
+    { new Ingredient { Name =  "Palmitic / Hexadecanoic (C16)", Risk = Risk.High, Details = "Used to induce the mycelial phase in vitro because it causes M. furfur to grow the fastest." }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "palmitoleic", "hexadecanoic" }) } },
     { new Ingredient { Name =  "Palmitoleic / Hexadecanoic (C16:1)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "palmitoleic" }) } },
     { new Ingredient { Name =  "Margaric / Heptadecanoic (C17)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "margaric", "heptadecanoic" }) } },
     { new Ingredient { Name =  "Stearic / Octadecanoic (C18)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "stearic", "octadecanoic" }) } },
-    { new Ingredient { Name =  "Oleic / Octadecanoic (C18:1)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "oleic" }) } },
+    { new Ingredient { Name =  "Oleic / Octadecanoic (C18:1)", Risk = Risk.High, Details = "Used to induce the mycelial phase in vitro because it causes M. furfur to grow the fastest." }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "oleic" }) } },
     { new Ingredient { Name =  "α-Linolenic (C18:3)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "alpha linoleic" }) } },
     { new Ingredient { Name =  "Linoleic (C18:2)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "linoleic" }) } },
     { new Ingredient { Name =  "Nonadecylic (C19)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "nonadecylic", "nonadecanoic" }) } },

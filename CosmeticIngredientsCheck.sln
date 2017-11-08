@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmeticIngredientsCheck", "CosmeticIngredientsCheck\CosmeticIngredientsCheck.csproj", "{75EE19FF-89DC-4E1F-ABBA-DA20C39809C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmeticIngredientsCheck", "CosmeticIngredientsCheck\CosmeticIngredientsCheck.csproj", "{75EE19FF-89DC-4E1F-ABBA-DA20C39809C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmeticIngredientsCheck.Tests.Unit", "CosmeticIngredientsCheck.Tests.Unit\CosmeticIngredientsCheck.Tests.Unit.csproj", "{7B36E4D2-9A34-48CA-84AF-4485BE1B844F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{75EE19FF-89DC-4E1F-ABBA-DA20C39809C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75EE19FF-89DC-4E1F-ABBA-DA20C39809C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75EE19FF-89DC-4E1F-ABBA-DA20C39809C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B36E4D2-9A34-48CA-84AF-4485BE1B844F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B36E4D2-9A34-48CA-84AF-4485BE1B844F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B36E4D2-9A34-48CA-84AF-4485BE1B844F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B36E4D2-9A34-48CA-84AF-4485BE1B844F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,7 +14,7 @@ namespace CosmeticIngredientsCheck.Services
             {
                 if (_categorizers == null)
                 {
-                    _categorizers = new List<AbstractCategorizer> { new FattyAcidCategorizer(), new EsterCategorizer() };
+                    _categorizers = new List<AbstractCategorizer> { new FattyAcidCategorizer(), new EsterCategorizer(), new FermentCategorizer() };
                 }
 
                 return _categorizers;
@@ -27,7 +27,7 @@ namespace CosmeticIngredientsCheck.Services
             var result = new List<Verdict>();
             for (var i = 0; i < ingredientsSplit.Length; i++)
             {
-                var ingredient = ingredientsSplit[i];
+                var ingredient = ingredientsSplit[i].Trim();
                 var verdict = CategorizeIngredient(ingredient, i, ingredientsSplit.Length);
                 if (verdict == null) continue;
                 result.Add(verdict);

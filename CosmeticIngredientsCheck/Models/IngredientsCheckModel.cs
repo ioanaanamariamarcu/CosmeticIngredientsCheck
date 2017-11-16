@@ -7,5 +7,6 @@ namespace CosmeticIngredientsCheck.Models
     {
         public string IngredientsList { get; set; }
         public List<Verdict> VerdictList { get; set; }
+        public List<Verdict> SkippedIngredientList { get; set; }
     }
 }

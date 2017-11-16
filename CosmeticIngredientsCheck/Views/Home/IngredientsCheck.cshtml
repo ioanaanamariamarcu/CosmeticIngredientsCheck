@@ -20,7 +20,8 @@
     </div>
 </div>
 @if (Model?.VerdictList != null)
-{<table>
+{<h2>Detected Ingredients</h2>
+<table>
         <thead>
             <tr>
                 <td>Ingredient class</td>
@@ -56,9 +57,45 @@
         }
     </table>
 }
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@if (Model?.SkippedIngredientList != null)
+{<h2>Skipped Ingredients</h2>
+<table>
+        <thead>
+            <tr>
+                <td>Ingredient class</td>
+                <td>Detected ingredient</td>
+                <td>Index of appearance</td>
+                <td>Original ingredient</td>
+                <td>Risk</td>
+                <td>Advice</td>
+            </tr>
+        </thead>
+        @foreach (var verdict in Model.SkippedIngredientList)
+        {
+            <tr>
+                <td>
+                    <label asp-for="@verdict.Class">@verdict.Class</label>
+                </td>
+                <td>
+                    <label asp-for="@verdict.Ingredient">@verdict.Ingredient</label>
+                </td>
+                <td>
+                    <label>@verdict.Index / @verdict.TotalNrOfIngredients</label>
+                </td>
+                <td>
+                    <label asp-for="@verdict.OriginalIngredient">@verdict.OriginalIngredient</label>
+                </td>
+                <td>
+                    <span class="risk @(verdict.Risk==Risk.Low ? "low-risk":verdict.Risk == Risk.Medium ? "medium-risk":"high-risk")" />
+                </td>
+                <td>
+                    <label asp-for="@verdict.Advice">@verdict.Advice</label>
+                </td>
+            </tr>
+        }
+    </table>
+}
 
 <style>
     .risk {

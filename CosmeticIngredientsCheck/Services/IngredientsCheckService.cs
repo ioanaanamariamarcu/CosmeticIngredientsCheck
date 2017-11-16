@@ -21,30 +21,33 @@ namespace CosmeticIngredientsCheck.Services
             }
         }
 
-        public static List<Verdict> GetVerdict(string ingredientList)
+        public static GetVerdictResult GetVerdict(string ingredientList)
         {
             var ingredientsSplit = SplitIntoIngredients(ingredientList);
-            var result = new List<Verdict>();
+            var detectedIngredients = new List<Verdict>();
+            var exceptions = new List<Verdict>();
             for (var i = 0; i < ingredientsSplit.Length; i++)
             {
                 var ingredient = ingredientsSplit[i].Trim();
                 var verdict = CategorizeIngredient(ingredient, i, ingredientsSplit.Length);
-                if (verdict == null) continue;
-                result.Add(verdict);
+                if (verdict.DetectedIngredientVerdict != null) detectedIngredients.Add(verdict.DetectedIngredientVerdict);
+                if (verdict.SkippedIngredientsVerdict != null) exceptions.AddRange(verdict.SkippedIngredientsVerdict);
             }
 
-            return result;
+            return new GetVerdictResult { DetectedIngredients = detectedIngredients, SkippedIngredients = exceptions };
         }
 
-        private static Verdict CategorizeIngredient(string ingredient, int index, int totalCount)
+        private static CategorizeIngredientResult CategorizeIngredient(string ingredient, int index, int totalCount)
         {
+            var exceptions = new List<Verdict>();
             foreach (var categorizer in Categorizers)
             {
                 var verdict = categorizer.Categorize(ingredient, index, totalCount);
-                if (verdict?.DetectedIngredientVerdict != null) return verdict.DetectedIngredientVerdict;
+                if (verdict?.SkippedIngredientVerdict != null) exceptions.Add(verdict.SkippedIngredientVerdict);
+                if (verdict?.DetectedIngredientVerdict != null) return new CategorizeIngredientResult { DetectedIngredientVerdict = verdict.DetectedIngredientVerdict, SkippedIngredientsVerdict = exceptions };
             }
 
-            return null;
+            return new CategorizeIngredientResult { SkippedIngredientsVerdict = exceptions };
         }
 
         private static string[] SplitIntoIngredients(string ingredientList)

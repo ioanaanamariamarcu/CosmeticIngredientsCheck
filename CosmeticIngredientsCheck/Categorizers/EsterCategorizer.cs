@@ -43,12 +43,14 @@ namespace CosmeticIngredientsCheck.Categorizers
                 {
                     _exceptions = new Dictionary<Ingredient, List<IIngredientMatchingRule>>
                     {
-                        { new Ingredient { Name = "Betaine Salicylate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "betaine salicylate"})} },
+                        { new Ingredient { Name = "Betaine Salicylate", Details = "BHA" }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "betaine salicylate"})} },
                         { new Ingredient { Name = "Sodium Hyaluronate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "sodium hyaluronate"})} },
-                        { new Ingredient { Name = "Ethylhexyl methoxycinnamate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "ethylhexyl methoxycinnamate" })} },
+                        { new Ingredient { Name = "Ethylhexyl methoxycinnamate", Details = "Sunscreen" }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "ethylhexyl methoxycinnamate" })} },
                         { new Ingredient { Name = "Octyl salicylate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "Octyl salicylate" }), new RegexMatchingRule(new List<string> { "{2-}+ethylhexyl salicylate$" }) } },
                         { new Ingredient { Name = "Sodium hyaluronate"}, new List<IIngredientMatchingRule> { new RegexMatchingRule(new List<string> { @"^sodium \w*hyaluronate$" }) } },
                         { new Ingredient { Name = "Generic hyaluronate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "hyaluronate" }) } },
+                        { new Ingredient { Name = "Generic citrate", Details = "Ester of citric acid" }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "citrate" }) } },
+                        { new Ingredient { Name = "Generic succinate", Details = "Ester of succinic acid"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "succinate" }) } },
                         { new Ingredient { Name = "Hydrogenated starch hydrolysate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "hydrogenated starch hydrolysate" }) } },
                         { new Ingredient { Name = "Alkyl Benzoate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "alkyl benzoate" }) } }
                    };

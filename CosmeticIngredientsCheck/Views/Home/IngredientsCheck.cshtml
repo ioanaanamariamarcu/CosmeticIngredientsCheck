@@ -68,7 +68,6 @@
                 <td>Index of appearance</td>
                 <td>Original ingredient</td>
                 <td>Risk</td>
-                <td>Advice</td>
             </tr>
         </thead>
         @foreach (var verdict in Model.SkippedIngredientList)
@@ -88,9 +87,6 @@
                 </td>
                 <td>
                     <span class="risk @(verdict.Risk==Risk.Low ? "low-risk":verdict.Risk == Risk.Medium ? "medium-risk":"high-risk")" />
-                </td>
-                <td>
-                    <label asp-for="@verdict.Advice">@verdict.Advice</label>
                 </td>
             </tr>
         }

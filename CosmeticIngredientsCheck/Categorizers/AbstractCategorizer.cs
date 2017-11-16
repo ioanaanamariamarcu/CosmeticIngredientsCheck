@@ -1,5 +1,4 @@
 ﻿using CosmeticIngredientsCheck.DTOs;
-using CosmeticIngredientsCheck.Models;
 
 namespace CosmeticIngredientsCheck.Categorizers
 {

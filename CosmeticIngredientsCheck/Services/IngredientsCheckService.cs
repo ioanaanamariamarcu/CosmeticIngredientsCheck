@@ -14,7 +14,7 @@ namespace CosmeticIngredientsCheck.Services
             {
                 if (_categorizers == null)
                 {
-                    _categorizers = new List<AbstractCategorizer> { new FattyAcidCategorizer(), new EsterCategorizer(), new FermentCategorizer() };
+                    _categorizers = new List<AbstractCategorizer> { new FattyAcidCategorizer(), new EsterCategorizer(), new OtherCategorizer() };
                 }
 
                 return _categorizers;

@@ -7,7 +7,7 @@ using CosmeticIngredientsCheck.IngredientMatchingRules;
 
 namespace CosmeticIngredientsCheck.Categorizers
 {
-    public class FermentCategorizer : AbstractCategorizer
+    public class OtherCategorizer : AbstractCategorizer
     {
         private Dictionary<Ingredient, List<IIngredientMatchingRule>> _dictionary;
         private Dictionary<Ingredient, List<IIngredientMatchingRule>> Dictionary
@@ -19,7 +19,12 @@ namespace CosmeticIngredientsCheck.Categorizers
 
                     _dictionary = new Dictionary<Ingredient, List<IIngredientMatchingRule>>
 {
-    { new Ingredient { Name = "Galactomyces Ferment", Risk = Risk.High, Details = "Highly comedogenic for fungal acne." }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "galactomyces" }) } }
+    { new Ingredient { Name = "Galactomyces Ferment", Risk = Risk.High, Details = "Highly comedogenic for fungal acne." }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "galactomyces" }) } },
+    { new Ingredient { Name = "Beeswax", Risk = Risk.Medium }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "beeswax" }) } },
+    { new Ingredient { Name = "Coconut oil", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "coconut oil" }) } },
+    { new Ingredient { Name = "Generic Ferment", Risk = Risk.Low }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "ferment" }) } },
+    { new Ingredient { Name = "Squalene", Risk = Risk.Low }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "squalene" }) } },
+    { new Ingredient { Name = "PEG Castor Oil", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "castor oil" })  } }
 };
                 }
 
@@ -49,7 +54,7 @@ namespace CosmeticIngredientsCheck.Categorizers
                     };
                 }
             }
-            return new CategorizeResult { DetectedIngredientVerdict = null };
+            return new CategorizeResult();
         }
     }
 }

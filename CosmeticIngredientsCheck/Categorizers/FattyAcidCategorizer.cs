@@ -22,7 +22,7 @@ namespace CosmeticIngredientsCheck.Categorizers
     { new Ingredient { Name =  "Tridecylic (C13)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "tridecylic" }) } },
     { new Ingredient { Name =  "Myristic / Tetradecanoic (C14)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "myristic", "tetradecanoic" }) } },
     { new Ingredient { Name =  "Pentadecanoic (C15)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "pentadecanoic" }) } },
-    { new Ingredient { Name =  "Palmitic / Hexadecanoic (C16)", Risk = Risk.High, Details = "Used to induce the mycelial phase in vitro because it causes M. furfur to grow the fastest." }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "palmitoleic", "hexadecanoic" }) } },
+    { new Ingredient { Name =  "Palmitic / Hexadecanoic (C16)", Risk = Risk.High, Details = "Used to induce the mycelial phase in vitro because it causes M. furfur to grow the fastest." }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "palmitic", "hexadecanoic" }) } },
     { new Ingredient { Name =  "Palmitoleic / Hexadecanoic (C16:1)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "palmitoleic" }) } },
     { new Ingredient { Name =  "Margaric / Heptadecanoic (C17)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "margaric", "heptadecanoic" }) } },
     { new Ingredient { Name =  "Stearic / Octadecanoic (C18)", Risk = Risk.High }, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "stearic", "octadecanoic" }) } },
@@ -65,7 +65,7 @@ namespace CosmeticIngredientsCheck.Categorizers
                 }
             }
 
-            return new CategorizeResult { DetectedIngredientVerdict = null };
+            return new CategorizeResult();
         }
     }
 }

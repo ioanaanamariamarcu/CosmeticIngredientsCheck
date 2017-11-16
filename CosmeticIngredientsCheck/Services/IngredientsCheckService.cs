@@ -41,7 +41,7 @@ namespace CosmeticIngredientsCheck.Services
             foreach (var categorizer in Categorizers)
             {
                 var verdict = categorizer.Categorize(ingredient, index, totalCount);
-                if (verdict != null) return verdict;
+                if (verdict?.DetectedIngredientVerdict != null) return verdict.DetectedIngredientVerdict;
             }
 
             return null;

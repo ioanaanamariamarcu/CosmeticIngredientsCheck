@@ -17,7 +17,7 @@ namespace CosmeticIngredientsCheck.Tests.Unit
         {
             Initialize();
             var ingredient = @"Polyethylene Glycol 50 hydroxystearate";
-            var result = _sut.Categorize(ingredient, 2, 50);
+            var result = _sut.Categorize(ingredient, 2, 50).DetectedIngredientVerdict;
 
             Assert.AreEqual(result.Ingredient, "Polyethylene Glycol Stearates");
             Assert.AreEqual(result.Risk, DTOs.Risk.High);
@@ -29,7 +29,7 @@ namespace CosmeticIngredientsCheck.Tests.Unit
         {
             Initialize();
             var ingredient = @"PEG-30 stearate";
-            var result = _sut.Categorize(ingredient, 2, 50);
+            var result = _sut.Categorize(ingredient, 2, 50).DetectedIngredientVerdict;
 
             Assert.AreEqual(result.Ingredient, "Polyethylene Glycol Stearates");
             Assert.AreEqual(result.Risk, DTOs.Risk.High);

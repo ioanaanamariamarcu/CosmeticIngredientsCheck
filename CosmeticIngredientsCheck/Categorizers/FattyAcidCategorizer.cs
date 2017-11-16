@@ -43,25 +43,29 @@ namespace CosmeticIngredientsCheck.Categorizers
         }
         public override IngredientClassEnum IngredientClass => IngredientClassEnum.FattyAcid;
 
-        public override Verdict Categorize(string ingredient, int index, int totalCount)
+        public override CategorizeResult Categorize(string ingredient, int index, int totalCount)
         {
             foreach (var kvp in Dictionary)
             {
                 foreach (var rule in kvp.Value)
                 {
-                    if (rule.Matches(ingredient)) return new Verdict {
-                        Class = IngredientClass,
-                        Index = index,
-                        TotalNrOfIngredients = totalCount,
-                        Ingredient = kvp.Key.Name,
-                        OriginalIngredient = ingredient,
-                        Risk = kvp.Key.Risk,
-                        Advice = kvp.Key.Details
+                    if (rule.Matches(ingredient)) return new CategorizeResult
+                    {
+                        DetectedIngredientVerdict = new Verdict
+                        {
+                            Class = IngredientClass,
+                            Index = index,
+                            TotalNrOfIngredients = totalCount,
+                            Ingredient = kvp.Key.Name,
+                            OriginalIngredient = ingredient,
+                            Risk = kvp.Key.Risk,
+                            Advice = kvp.Key.Details
+                        }
                     };
                 }
             }
 
-            return null;
+            return new CategorizeResult { DetectedIngredientVerdict = null };
         }
     }
 }

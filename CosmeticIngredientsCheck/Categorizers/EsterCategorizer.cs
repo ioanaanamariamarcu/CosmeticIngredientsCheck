@@ -46,7 +46,10 @@ namespace CosmeticIngredientsCheck.Categorizers
                         { new Ingredient { Name = "Betaine Salicylate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "betaine salicylate"})} },
                         { new Ingredient { Name = "Sodium Hyaluronate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "sodium hyaluronate"})} },
                         { new Ingredient { Name = "Ethylhexyl methoxycinnamate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "ethylhexyl methoxycinnamate" })} },
-                        { new Ingredient { Name = "Octyl salicylate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "Octyl salicylate" }), new RegexMatchingRule(new List<string> { "{2-}+ethylhexyl salicylate" }) } },
+                        { new Ingredient { Name = "Octyl salicylate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "Octyl salicylate" }), new RegexMatchingRule(new List<string> { "{2-}+ethylhexyl salicylate$" }) } },
+                        { new Ingredient { Name = "Sodium hyaluronate"}, new List<IIngredientMatchingRule> { new RegexMatchingRule(new List<string> { @"^sodium \w*hyaluronate$" }) } },
+                        { new Ingredient { Name = "Generic hyaluronate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "hyaluronate" }) } },
+                        { new Ingredient { Name = "Hydrogenated starch hydrolysate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "hydrogenated starch hydrolysate" }) } },
                         { new Ingredient { Name = "Alkyl Benzoate"}, new List<IIngredientMatchingRule> { new ContainsMatchingRule(new List<string> { "alkyl benzoate" }) } }
                    };
                 }
@@ -56,14 +59,17 @@ namespace CosmeticIngredientsCheck.Categorizers
         }
         public override IngredientClassEnum IngredientClass => IngredientClassEnum.Ester;
 
-        public override Verdict Categorize(string ingredient, int index, int totalCount)
+        public override CategorizeResult Categorize(string ingredient, int index, int totalCount)
         {
             // Exceptions should not appear
             foreach (var kvp in Exceptions)
             {
                 foreach (var rule in kvp.Value)
                 {
-                    if (rule.Matches(ingredient)) return null;
+                    if (rule.Matches(ingredient))
+                    {
+                        return new CategorizeResult { SkippedIngredientVerdict = BuildVerdict(ingredient, index, totalCount, kvp.Key) };
+                    }
                 }
             }
 
@@ -71,28 +77,37 @@ namespace CosmeticIngredientsCheck.Categorizers
             {
                 foreach (var rule in kvp.Value)
                 {
-                    if (rule.Matches(ingredient)) return new Verdict
+                    if (rule.Matches(ingredient))
                     {
-                        Class = IngredientClass,
-                        Index = index,
-                        TotalNrOfIngredients = totalCount,
-                        Ingredient = kvp.Key.Name,
-                        OriginalIngredient = ingredient,
-                        Risk = kvp.Key.Risk,
-                        Advice = kvp.Key.Details
-                    };
+                        return new CategorizeResult { DetectedIngredientVerdict = BuildVerdict(ingredient, index, totalCount, kvp.Key) };
+                    }
                 }
             }
 
-            // remove ending numbers, like in Polysorbate 20
-            var regex = new Regex(@"[^a-zA-Z]+$");
-            var withoutNumbers = regex.Replace(ingredient, string.Empty);
+                // remove ending numbers, like in Polysorbate 20
+                var regex = new Regex(@"[^a-zA-Z]+$");
+                var withoutNumbers = regex.Replace(ingredient, string.Empty);
 
-            if (EndsIn(withoutNumbers.ToLower(), "ate"))
+                if (EndsIn(withoutNumbers.ToLower(), "ate"))
+                {
+                    return new CategorizeResult { DetectedIngredientVerdict = new Verdict { Class = IngredientClass, Index = index, TotalNrOfIngredients = totalCount, Ingredient = ingredient, OriginalIngredient = ingredient } };
+                }
+
+            return new CategorizeResult();
+        }
+
+        private Verdict BuildVerdict(string ingredient, int index, int totalCount, Ingredient detectedIngredient)
+        {
+            return new Verdict
             {
-                return new Verdict { Class = IngredientClass, Index = index, TotalNrOfIngredients = totalCount, Ingredient = ingredient, OriginalIngredient = ingredient };
-            }
-            return null;
+                Class = IngredientClass,
+                Index = index,
+                TotalNrOfIngredients = totalCount,
+                Ingredient = detectedIngredient.Name,
+                OriginalIngredient = ingredient,
+                Risk = detectedIngredient.Risk,
+                Advice = detectedIngredient.Details
+            };
         }
 
         private bool EndsIn(string ingredient, string suffix)
